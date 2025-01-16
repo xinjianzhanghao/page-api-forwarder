@@ -1,5 +1,5 @@
 # Page-api-forwarder
-A Cloudflare pages for forwarding api request.
+A Cloudflare pages script for forwarding api request.
 
 ## 1. Description 
 This is a js script for Cloudflare pages. This script will forward the request you send to it to the api host.  
