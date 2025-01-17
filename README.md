@@ -16,11 +16,16 @@ It can help you bypass ip restrictions on some api, and it is fast due to it goe
      |-----------|----------|
      |type|text|
      |Varible name|`APIHOST`|
-     |Value|Your Api host name with path should go here.|
+     |Value|Your Api host name with path should go here.|  
+
+     For more enviromental varible usage, please read [here](#enviromental-varible-explanation)
   
 7. Go to Deployments and reupload the zip file to make sure the enviroment varible work.
 
 And now, you can request to `your-project-name.pages.dev` and it should return the response from the api host.
 
-
-
+## Enviromental varible explanation
+|Name|Avalible values|explanation|example|
+|----|----------------|------------|-------|
+|`APIHOST`|A url|The api url|`example.com/api`|
+|`PROTOCOL`|The protocol of the api,This will overide the one you include at the `APIHOST`. However, if you have a valid value for protocol in the `APIHOST` part, then you don't need to set this varible.|`HTTP` or `HTTPS`|
