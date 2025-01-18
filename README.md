@@ -31,6 +31,7 @@ And now, you can request to `your-project-name.pages.dev` and it should return t
 |`APIHOST`|A url|The api url|`example.com/api`|
 |`PROTOCOL`|The protocol of the api,This will overide the one you include at the `APIHOST`. However, if you have a valid value for protocol in the `APIHOST` part, then you don't need to set this varible.|`HTTP` or `HTTPS`|
 
+***Please note that Cloudflare Pages only support HTTPS request.***
 
 ## Usage Example 
 I'll give an example on forwarding [Google AI](https://aistudio.google.com) request. Google AI provides a free API. You can use this project's script to use this API even if you're in country that Gemini API isn't avalible. 
