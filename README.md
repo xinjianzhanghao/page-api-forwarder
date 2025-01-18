@@ -56,3 +56,10 @@ I'll give an example on forwarding [Google AI](https://aistudio.google.com) requ
   - replace `GEMINI_API_KEY` with your [API key](https://aistudio.google.com/apikey)
   - replace `Input your message here` to your message
 5. Press enter then the request should go through you page function and then reach google. 
+
+## Contributing
+You can open issues or submit your changes.
+
+## Support me
+If you think my work helps you, consider support me
+- ETH/USDT(ERC20): `0x414E4de402C12de27bB3412e43E3F9B0fBdEBB17`
