@@ -53,8 +53,26 @@ export default {
             }
             return headers;
         }
+
         const url_requestUrl = new URL(request.url);
         const headers_requestHeaders = new Headers(request.headers);
+
+        const bool_requirePassword = env.REQUIREPASSWORD;
+        if (bool_requirePassword) {
+            //check the header and value
+            //The password should be pass with the `password` header 
+            const string_password = env.PASSWORD;
+            if (!(string_password == headers_requestHeaders.get('password'))) {
+                return new Response('invalid password',
+                    {
+                        status: 403,
+                    }
+                );
+            }
+        }
+
+
+
         const unknown_body = request.body;
         if (!(env.APIHOST.match(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+(\/[a-zA-Z0-9-.,@?^=%&:/~+#]*)?$/))) {
             //invalid configuration
