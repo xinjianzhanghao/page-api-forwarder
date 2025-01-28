@@ -64,5 +64,6 @@ I'll give an example on forwarding [Google AI](https://aistudio.google.com) requ
 You can open issues or submit your changes.
 
 ## Support me
+__GIVE ME A STAR 😆__
 If you think my work helps you, consider support me
 - ETH/USDT(ERC20): `0x414E4de402C12de27bB3412e43E3F9B0fBdEBB17`
