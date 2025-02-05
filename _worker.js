@@ -56,7 +56,33 @@ export default {
 
         const url_requestUrl = new URL(request.url);
         const headers_requestHeaders = new Headers(request.headers);
+        
 
+        const str_requireHeaderName = env.REQUIREHEADERNAME;
+        const str_requireHeaderNameValue = env.REQUIREHEADERVALUE
+        const headerNameRegex = /^[a-zA-Z0-9-_]+$/;
+        //const headerValueRegex = /^[^\r\n]+$/;
+        //check if require header and check the header value
+        if ((!(str_requireHeaderName === null || str_requireHeaderName === undefined || str_requireHeaderName == '')) && headerNameRegex.test(str_requireHeaderName)) {
+            //the header name is valid and now I should check the header value
+            if (!headers_requestHeaders.get(str_requireHeaderName) == str_requireHeaderName) {
+                return new Response ('invalid request' , 
+                    {
+                        status: 403,
+                    }
+                );
+            }
+        } else if (!(str_requireHeaderName === null || str_requireHeaderName === undefined || str_requireHeaderName == '')) {
+            //the header is invalid but set
+            return new Response ('invalid setting: the enviromental varible REQUIREHEADER is invalid' , 
+                {
+                    status: 500,
+                }
+            );
+        } 
+        //If code excute to here then the header is valid.
+
+        /*
         const bool_requirePassword = env.REQUIREPASSWORD;
         if (bool_requirePassword) {
             //check the header and value
@@ -70,7 +96,7 @@ export default {
                 );
             }
         }
-
+        */
 
 
         const unknown_body = request.body;
