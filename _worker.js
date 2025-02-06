@@ -55,17 +55,17 @@ export default {
         }
 
         const url_requestUrl = new URL(request.url);
-        const headers_requestHeaders = new Headers(request.headers);
+        let headers_requestHeaders = new Headers(request.headers);
         
 
         const str_requireHeaderName = env.REQUIREHEADERNAME;
-        const str_requireHeaderNameValue = env.REQUIREHEADERVALUE
-        const headerNameRegex = /^[a-zA-Z0-9-_]+$/;
+        const str_requireHeaderValue = env.REQUIREHEADERVALUE;
+        const nameRegex = /^[a-zA-Z0-9-_]+$/;
         //const headerValueRegex = /^[^\r\n]+$/;
         //check if require header and check the header value
-        if ((!(str_requireHeaderName === null || str_requireHeaderName === undefined || str_requireHeaderName == '')) && headerNameRegex.test(str_requireHeaderName)) {
+        if ((!(str_requireHeaderName === null || str_requireHeaderName === undefined || str_requireHeaderName == '')) && nameRegex.test(str_requireHeaderName)) {
             //the header name is valid and now I should check the header value
-            if (!headers_requestHeaders.get(str_requireHeaderName) == str_requireHeaderName) {
+            if (headers_requestHeaders.get(str_requireHeaderName) != str_requireHeaderValue) {
                 return new Response ('invalid request' , 
                     {
                         status: 403,
@@ -79,8 +79,37 @@ export default {
                     status: 500,
                 }
             );
-        } 
+        } else {
+            //the header is valid
+            //I need to remove it
+            headers_requestHeaders.delete(str_requireHeaderName);
+        }
         //If code excute to here then the header is valid.
+        //then I need to verify the params
+        const str_requireParamName = env.REQUIREPARAMNAME;
+        const str_requireParamValue = env.REQUIREPARAMVALUE;
+        if (!(str_requireParamName === null || str_requireParamName === undefined || str_requireParamName == '') && nameRegex.test(str_requireParamName)) {
+            //the require param is set and valid
+            if (url_requestUrl.searchParams.get(str_requireParamName) != str_requireParamValue) {
+                //the value is invalid 
+                return new Response ('invalid request' , 
+                    {
+                        status: 403,
+                    }
+                );
+            }
+        } else if (!(str_requireParamName === null || str_requireParamName === undefined || str_requireParamName == '')) {
+            //the require param is set but invalid
+            return new Response ('invalid setting: the enviromental varible REQUIREPARAM is invalid' , 
+                {
+                    status: 500,
+                }
+            );
+        } else {
+            //the param is set and valid 
+            //I need to remove it.
+            url_requestUrl.searchParams.delete(str_requireParamName);
+        }
 
         /*
         const bool_requirePassword = env.REQUIREPASSWORD;
@@ -100,7 +129,7 @@ export default {
 
 
         const unknown_body = request.body;
-        if (!(env.APIHOST.match(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+(\/[a-zA-Z0-9-.,@?^=%&:/~+#]*)?$/))) {
+        if (!(env.APIHOST.match(/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+(\/[a-zA-Z0-9-.,@?^=%&:/~+#]*)?$/)) || env.APIHOST == '' || env.APIHOST === null || env.APIHOST === undefined) {
             //invalid configuration
             return new Response('invalid configuration' , {
                 status: 500,
