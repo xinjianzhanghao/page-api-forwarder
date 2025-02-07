@@ -34,6 +34,7 @@ And now, you can request to `your-project-name.pages.dev` and it should return t
 |`REQUIREHEADERVALUE`|The password for the header|This is the value for the header you set with `REQUIREHEADERNAME`, if you don't set it then this value is ignored|password|
 |`REQUIREPARAMNAME`|a param name|If you set this then you must include a param with a proper value wo use or it will response `403 invalid request`|password|
 |`REQUIREPARAMVALUE`|The value for the param|This is the value for the param you set with `REQUIREPARAMNAME`, ignored if the value is not set.|password|
+
 Both header and param set to be required will be remove when sending the request.
 If you set to require to then you must include both of them or it won't work.
 
