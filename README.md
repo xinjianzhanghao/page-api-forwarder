@@ -30,35 +30,14 @@ And now, you can request to `your-project-name.pages.dev` and it should return t
 |----|----------------|------------|-------|
 |`APIHOST`|A url|The api url|`example.com/api`|
 |`PROTOCOL`|`HTTP` or `HTTPS`|The protocol of the api,This will overide the one you include at the `APIHOST`. However, if you have a valid value for protocol in the `APIHOST` part, then you don't need to set this varible.|`HTTP`|
-|`REQUIREPASSWORD`|`true` or `false`|When this varible is set to `true` and the `PASSWORD` varible has a proper value, then a request header `password` is required. If you don't set this value then it's default to false.|`true`|
-|`password`|anything|The password for accessing.|`password`|
+|`REQUIREHEADERNAME`|a header name, this is case sensitive|If you set this then you must include this header in you request or it will response with `403 invalid request`|password|
+|`REQUIREHEADERVALUE`|The password for the header|This is the value for the header you set with `REQUIREHEADERNAME`, if you don't set it then this value is ignored|password|
+|`REQUIREPARAMNAME`|a param name|If you set this then you must include a param with a proper value wo use or it will response `403 invalid request`|password|
+|`REQUIREPARAMVALUE`|The value for the param|This is the value for the param you set with `REQUIREPARAMNAME`, ignored if the value is not set.|password|
+Both header and param set to be required will be remove when sending the request.
+If you set to require to then you must include both of them or it won't work.
 
-***Please note that Cloudflare Pages only support HTTPS request.***
-
-## Usage Example 
-I'll give an example on forwarding [Google AI](https://aistudio.google.com) request. Google AI provides a free API. You can use this project's script to use this API even if you're in country that Gemini API isn't avalible. 
-1. Make sure you have an [API key](https://aistudio.google.com/apikey).
-2. You will need to upload your assets to cloudflare following the steps that I metioned before.
-3. Now you can set enviromental varible in the setting part.
-   |Key|Value|
-   |---|-----|
-   |`APIHOST`|`https://generativelanguage.googleapis.com/`|
-   |`PROTOCOL`|This is optional due to you've set the protocol in the API host part. But however, the value here can be `HTTPS`|
-5. Try to run this in the command
-  ```bash
-   curl "https://yourpageurl.pages.dev/v1beta/models/gemini-1.5-flash:generateContent?key=GEMINI_API_KEY" \
--H 'Content-Type: application/json' \
--X POST \
--d '{
-  "contents": [{
-    "parts":[{"text": "Input your message here"}]
-    }]
-   }'
-```
-  - replace `yourpageurl.pages.dev` with your page url
-  - replace `GEMINI_API_KEY` with your [API key](https://aistudio.google.com/apikey)
-  - replace `Input your message here` to your message
-5. Press enter then the request should go through you page function and then reach google. 
+***Please note that Cloudflare Pages only support HTTPS request into pages.***
 
 ## Contributing
 You can open issues or submit your changes.
